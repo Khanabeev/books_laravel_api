@@ -3,13 +3,16 @@
 namespace App\Http\Controllers\Api\v1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\v1\BookSearchRequest;
 use App\Http\Requests\Api\v1\BookStoreRequest;
 use App\Http\Requests\Api\v1\BookUpdateRequest;
 use App\Http\Resources\Api\v1\BookResource;
 use App\Http\Resources\Api\v1\BookResourceCollection;
+use App\Models\Author;
 use App\Models\Book;
 use App\Repositories\BookRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class BookController extends Controller
 {
@@ -100,5 +103,14 @@ class BookController extends Controller
         return response()->json([
             'error' => 'Author ' . $book->id . ' hasn\'t been deleted'
         ]);
+    }
+
+    public function search(BookSearchRequest $request)
+    {
+        $validated = $request->validated();
+        $title = $validated['title'];
+        $books = Book::where('title', 'LIKE', '%' . $title . '%')
+            ->get();
+        return $books ? BookResource::collection($books) : [];
     }
 }

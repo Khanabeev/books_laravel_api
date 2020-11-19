@@ -19,7 +19,12 @@ class DatabaseSeeder extends Seeder
         Book::factory(100)->create();
 
         Book::all()->each(function ($book) {
-           $book->authors()->attach(Author::inRandomOrder()->first());
+            $book->authors()->attach(Author::inRandomOrder()->first());
+        });
+
+        // Add second author to the 50 books
+        Book::all()->take(50)->each(function ($book) {
+            $book->authors()->attach(Author::inRandomOrder()->first());
         });
     }
 }

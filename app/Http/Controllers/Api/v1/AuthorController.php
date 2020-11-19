@@ -5,11 +5,13 @@ namespace App\Http\Controllers\Api\v1;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\v1\AuthorStoreRequest;
 use App\Http\Requests\Api\v1\AuthorUpdateRequest;
+use App\Http\Requests\Api\v1\AuthorSearchRequest;
 use App\Http\Resources\Api\v1\AuthorResource;
 use App\Http\Resources\Api\v1\AuthorResourceCollection;
 use App\Models\Author;
 use App\Repositories\AuthorRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AuthorController extends Controller
 {
@@ -99,5 +101,15 @@ class AuthorController extends Controller
         return response()->json([
             'error' => 'Author ' . $author->id . ' hasn\'t been deleted'
         ]);
+    }
+
+    public function search(AuthorSearchRequest $request)
+    {
+        $validated = $request->validated();
+        $auhtorName = $validated['author_name'];
+        $authors = Author::where(DB::raw('CONCAT(first_name," ",family_name," ", middle_name)'), 'LIKE', '%' . $auhtorName . '%')
+            ->get();
+        return $authors ? AuthorResource::collection($authors) : [];
+
     }
 }

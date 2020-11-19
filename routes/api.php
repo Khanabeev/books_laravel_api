@@ -6,6 +6,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('/v1')->group(function () {
+    Route::get('authors/search', [AuthorController::class, 'search'])->name('authors.search');
+    Route::get('books/search', [BookController::class, 'search'])->name('books.search');
+
     Route::apiResource('authors', AuthorController::class);
     Route::apiResource('books', BookController::class);
+
 });

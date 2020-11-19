@@ -27,12 +27,15 @@ class Book extends Model
     public function getAuthorsListAttribute()
     {
         $authorsList = [];
-        $this->authors()->each(function ($author) use ($authorsList) {
+
+        $this->authors()->get()->each(function ($author) use (&$authorsList) {
             $familyName = ucfirst(mb_strtolower($author->family_name));
             $firstNameLatter = mb_strtoupper(substr($author->first_name, 0, 1));
             $middleNameLatter = mb_strtoupper(substr($author->middle_name, 0, 1));
-            $authorsList[] = $familyName . " " . $firstNameLatter . "." . $middleNameLatter . ".";
+            $row = $familyName . " " . $firstNameLatter . "." . $middleNameLatter . ".";
+            array_push($authorsList, $row);
         });
-        return implode(' ,', $authorsList) ?? "";
+
+        return implode(', ', $authorsList) ?? "";
     }
 }

@@ -11,8 +11,8 @@ interface BookInterface
 {
     public function all(): Collection;
 
-    public function getById($id): Book;
+    public function getById(int $id): Book;
 
-    public function getByTitle($title): Book;
+    public function getByTitle(string $title): Book;
 
 }

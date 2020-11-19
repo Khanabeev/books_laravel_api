@@ -7,21 +7,35 @@ namespace App\Repositories;
 use App\Models\Book;
 use App\Repositories\Interfaces\BookInterface;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Cache;
 
 class BookRepository implements BookInterface
 {
+    /**
+     * @var string
+     */
+    private $ttl;
+
+    public function __construct()
+    {
+        $this->ttl = '60'; //minutes
+    }
 
     public function all(): Collection
     {
-        // TODO: Implement all() method.
+        return Cache::remember('books', $this->ttl, function () {
+            return Book::all();
+        });
     }
 
-    public function getById($id): Book
+    public function getById(int $id): Book
     {
-        // TODO: Implement getById() method.
+        return Cache::remember('book.id.' . $id, $this->ttl, function () use($id) {
+            return Book::findOrFail($id);
+        });
     }
 
-    public function getByTitle($title): Book
+    public function getByTitle(string $title): Book
     {
         // TODO: Implement getByTitle() method.
     }

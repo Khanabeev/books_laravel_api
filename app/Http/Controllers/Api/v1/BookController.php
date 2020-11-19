@@ -107,10 +107,6 @@ class BookController extends Controller
 
     public function search(BookSearchRequest $request)
     {
-        $validated = $request->validated();
-        $title = $validated['title'];
-        $books = Book::where('title', 'LIKE', '%' . $title . '%')
-            ->get();
-        return $books ? BookResource::collection($books) : [];
+        return $this->bookRepository->getByTitle($request->validated()['title']);
     }
 }

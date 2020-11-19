@@ -8,6 +8,7 @@ use App\Models\Author;
 use App\Repositories\Interfaces\AuthorInterface;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
 
 class AuthorRepository implements AuthorInterface
 {
@@ -36,9 +37,11 @@ class AuthorRepository implements AuthorInterface
         });
     }
 
-    public function getByName(string $name): Author
+    public function getByName(string $name): Collection
     {
-        return Author::where('name', 'LIKE', '%' . $name . '%')->first();
+        $authors = Author::where(DB::raw('CONCAT(first_name," ",family_name," ", middle_name)'), 'LIKE', '%' . $name . '%')
+            ->get();
+        return $authors ?? collect([]);
     }
 
     public function countBooks(int $id): int

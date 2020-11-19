@@ -13,7 +13,7 @@ interface AuthorInterface
 
     public function getById(int $id): Author;
 
-    public function getByName(string $name): Author;
+    public function getByName(string $name): Collection;
 
     public function countBooks(int $id): int;
 }

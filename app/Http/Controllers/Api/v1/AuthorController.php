@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\v1\AuthorStoreRequest;
 use App\Http\Requests\Api\v1\AuthorUpdateRequest;
 use App\Http\Resources\Api\v1\AuthorResource;
+use App\Http\Resources\Api\v1\AuthorResourceCollection;
 use App\Models\Author;
 use App\Repositories\AuthorRepository;
 use Illuminate\Http\Request;
@@ -25,11 +26,11 @@ class AuthorController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     * @return AuthorResourceCollection
      */
     public function index()
     {
-        return AuthorResource::collection($this->authorRepository->all());
+        return new AuthorResourceCollection(Author::paginate(5));
     }
 
     /**

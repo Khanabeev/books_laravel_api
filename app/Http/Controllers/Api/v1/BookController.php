@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\v1\BookStoreRequest;
 use App\Http\Requests\Api\v1\BookUpdateRequest;
 use App\Http\Resources\Api\v1\BookResource;
+use App\Http\Resources\Api\v1\BookResourceCollection;
 use App\Models\Book;
 use App\Repositories\BookRepository;
 use Illuminate\Http\Request;
@@ -25,11 +26,11 @@ class BookController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     * @return BookResourceCollection
      */
     public function index()
     {
-        return BookResource::collection($this->bookRepository->all());
+        return new BookResourceCollection(Book::paginate(5));
     }
 
     /**

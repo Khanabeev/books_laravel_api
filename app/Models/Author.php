@@ -10,7 +10,13 @@ class Author extends Model
 {
     use HasFactory;
 
-    protected $guarded = [];
+    protected $fillable = [
+        'first_name',
+        'family_name',
+        'middle_name',
+        'date_of_birth',
+        'date_of_death',
+    ];
 
     protected $appends = [
         'count_books'

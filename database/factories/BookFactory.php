@@ -22,7 +22,9 @@ class BookFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'title' => $this->faker->sentence($this->faker->numberBetween(2,4)),
+            'description' => $this->faker->realText(255),
+            'published_at' => $this->faker->date()
         ];
     }
 }

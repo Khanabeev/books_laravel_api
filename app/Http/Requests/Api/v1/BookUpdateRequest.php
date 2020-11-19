@@ -24,9 +24,9 @@ class BookUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => ['required', 'string', 'max:255'],
-            'description' => ['required', 'string', 'max:255'],
-            'published_year' => ['required', 'integer'],
+            'title' => ['string', 'max:255'],
+            'description' => ['string', 'max:255'],
+            'published_year' => ['integer'],
         ];
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Repositories\BookRepository;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -28,7 +29,7 @@ class Book extends Model
     {
         $authorsList = [];
 
-        $this->authors()->get()->each(function ($author) use (&$authorsList) {
+        (new BookRepository())->all()->each(function ($author) use (&$authorsList) {
             $familyName = ucfirst(mb_strtolower($author->family_name));
             $firstNameLatter = mb_strtoupper(substr($author->first_name, 0, 1));
             $middleNameLatter = mb_strtoupper(substr($author->middle_name, 0, 1));

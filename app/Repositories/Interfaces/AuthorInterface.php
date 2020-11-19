@@ -11,7 +11,9 @@ interface AuthorInterface
 {
     public function all(): Collection;
 
-    public function getById($id): Author;
+    public function getById(int $id): Author;
 
-    public function getByName($name): Author;
+    public function getByName(string $name): Author;
+
+    public function countBooks(int $id): int;
 }

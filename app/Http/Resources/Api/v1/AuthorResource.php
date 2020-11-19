@@ -21,6 +21,7 @@ class AuthorResource extends JsonResource
             'middle_name' => $this->middle_name,
             'date_of_birth' => $this->date_of_birth,
             'date_of_death' => $this->date_of_death,
+            'count_books' => $this->count_books
         ];
     }
 }

@@ -29,15 +29,20 @@ class AuthorRepository implements AuthorInterface
         });
     }
 
-    public function getById($id): Author
+    public function getById(int $id): Author
     {
         return Cache::remember('author.id.' . $id, $this->ttl, function ($id) {
             return Author::findOrFail($id);
         });
     }
 
-    public function getByName($name): Author
+    public function getByName(string $name): Author
     {
         return Author::where('name', 'LIKE', '%' . $name . '%')->first();
+    }
+
+    public function countBooks(int $id): int
+    {
+        return Author::findOrFail($id)->books()->count();
     }
 }

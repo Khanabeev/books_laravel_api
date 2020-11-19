@@ -12,7 +12,7 @@ class Book extends Model
 
     protected $fillable = [
         'title',
-        'published_at',
+        'published_year',
         'description'
     ];
 
@@ -29,7 +29,7 @@ class Book extends Model
     {
         $authorsList = [];
 
-        (new BookRepository())->all()->each(function ($author) use (&$authorsList) {
+        $this->authors()->each(function ($author) use (&$authorsList) {
             $familyName = ucfirst(mb_strtolower($author->family_name));
             $firstNameLatter = mb_strtoupper(substr($author->first_name, 0, 1));
             $middleNameLatter = mb_strtoupper(substr($author->middle_name, 0, 1));

@@ -9,16 +9,16 @@ class BookResource extends JsonResource
     /**
      * Transform the resource into an array.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return array
      */
     public function toArray($request)
     {
         return [
-          'id' => $this->id,
-          'title' => $this->title,
-          'published_at' => $this->published_at,
-          'authors_list' => $this->authors_list
+            'id' => $this->id,
+            'title' => $this->title,
+            'published_year' => $this->published_year,
+            'authors_list' => $this->authors_list
         ];
     }
 }

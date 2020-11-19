@@ -24,10 +24,10 @@ class AuthorUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'first_name' => ['required', 'string', 'max:255'],
-            'family_name' => ['required', 'string', 'max:255'],
-            'middle_name' => ['required', 'string', 'max:255'],
-            'date_of_birth' => ['required', 'date'],
+            'first_name' => ['string', 'max:255'],
+            'family_name' => ['string', 'max:255'],
+            'middle_name' => ['string', 'max:255'],
+            'date_of_birth' => ['date'],
             'date_of_death' => ['date'],
         ];
     }

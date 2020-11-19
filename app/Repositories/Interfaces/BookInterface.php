@@ -13,6 +13,6 @@ interface BookInterface
 
     public function getById(int $id): Book;
 
-    public function getByTitle(string $title): Book;
+    public function getByTitle(string $title): Collection;
 
 }

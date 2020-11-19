@@ -105,11 +105,6 @@ class AuthorController extends Controller
 
     public function search(AuthorSearchRequest $request)
     {
-        $validated = $request->validated();
-        $auhtorName = $validated['author_name'];
-        $authors = Author::where(DB::raw('CONCAT(first_name," ",family_name," ", middle_name)'), 'LIKE', '%' . $auhtorName . '%')
-            ->get();
-        return $authors ? AuthorResource::collection($authors) : [];
-
+       return $this->authorRepository->getByName($request->validated()['author_name']);
     }
 }

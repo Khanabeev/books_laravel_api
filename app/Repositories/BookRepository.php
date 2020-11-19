@@ -35,8 +35,10 @@ class BookRepository implements BookInterface
         });
     }
 
-    public function getByTitle(string $title): Book
+    public function getByTitle(string $title): Collection
     {
-        // TODO: Implement getByTitle() method.
+       $books = Book::where('title', 'LIKE', '%' . $title . '%')
+            ->get();
+       return $books ?? collect([]);
     }
 }

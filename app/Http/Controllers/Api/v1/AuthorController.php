@@ -5,10 +5,21 @@ namespace App\Http\Controllers\Api\v1;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Api\v1\AuthorResource;
 use App\Models\Author;
+use App\Repositories\AuthorRepository;
 use Illuminate\Http\Request;
 
 class AuthorController extends Controller
 {
+    /**
+     * @var AuthorRepository
+     */
+    private $authorRepository;
+
+    public function __construct(AuthorRepository $authorRepository)
+    {
+        $this->authorRepository = $authorRepository;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -16,7 +27,7 @@ class AuthorController extends Controller
      */
     public function index()
     {
-        return AuthorResource::collection(Author::all());
+        return AuthorResource::collection($this->authorRepository->all());
     }
 
     /**

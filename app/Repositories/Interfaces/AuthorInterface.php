@@ -14,6 +14,4 @@ interface AuthorInterface
     public function getById($id): Author;
 
     public function getByName($name): Author;
-
-    public function getByFullName($fullName): Author;
 }
